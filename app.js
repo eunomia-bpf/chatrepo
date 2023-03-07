@@ -39,9 +39,8 @@ module.exports = (app) => {
       app.log.info("Msg:"+msg);
       const completion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt:msg,
-        max_tokens: 250,
-        temperature: 0.9,
+        prompt: msg,
+        max_tokens: 250
       });
       app.log.info(completion.data.choices[0].text);
 
