@@ -70,28 +70,28 @@ ChatRepo测试版，使用git app+Vercel无服务计算平台构建。
 
 ## 3) 开发者模式
 
-    开发过程中，不需要每次都进行部署，可以搭建一个本地开发环境：
+开发过程中，不需要每次都进行部署，可以搭建一个本地开发环境：
 
-    参考：https://probot.github.io/docs/development/#running-the-app-locally
+参考：https://probot.github.io/docs/development/#running-the-app-locally
 
-    1.环境初始化
+1.环境初始化
 
-    ```
-    npm install
-    npm start
-    ```
+```
+npm install
+npm start
+```
 
-    2.根据提示，访问localhost:3000
+2.根据提示，访问localhost:3000
 
-    3.根据指示创建一个新的Git App
+3.根据指示创建一个新的Git App
 
-    4.此时，prebot会创建一个.env文件，在文件中添加：
+4.此时，prebot会创建一个.env文件，在文件中添加：
 
-    ```
-    GPT_KEY= [your chatGPT token]
-    ```
+```
+GPT_KEY= [your chatGPT token]
+```
 
-    5.参考第二章，设置app权限，并选择一个repo安装该app
+5.参考第二章，设置app权限，并选择一个repo安装该app
 
 
 
