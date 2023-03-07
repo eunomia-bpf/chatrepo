@@ -1,0 +1,7 @@
+default_events:
+  - issues
+  - issue_comment
+
+default_permissions:
+  issues: write
+  metadata: read
