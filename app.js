@@ -34,12 +34,12 @@ module.exports = (app) => {
       });
       const openai = new OpenAIApi(configuration);
 
-      var msg=context.payload.comment.body.substring(4);
+      var info=context.payload.comment.body.substring(4);
 
-      app.log.info("Msg:"+msg);
+      app.log.info("Msg:"+info);
       const completion = await openai.createCompletion({
         model: "gpt-3.5-turbo",
-        prompt: msg,
+        prompt: info,
         max_tokens: 250
       });
       app.log.info(completion.data.choices[0].text);
