@@ -1,0 +1,28 @@
+{
+  "name": "@probot/example-vercel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Probot & Google Cloud Functions example",
+  "scripts": {
+    "start": "probot run ./app.js",
+    "test": "node test.js"
+  },
+  "author": "Gregor Martynus (https://twitter.com/gr2m)",
+  "license": "ISC",
+  "repository": "github:probot/example-vercel",
+  "dependencies": {
+    "openai": "^3.2.1",
+    "probot": "^12.2.7",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "nock": "^13.2.9",
+    "smee-client": "^1.2.3",
+    "uvu": "^0.5.6"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  }
+}
