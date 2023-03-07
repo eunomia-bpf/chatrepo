@@ -37,10 +37,8 @@ ChatRepo测试版，使用git app+Vercel无服务计算平台构建。
     ![截屏2023-03-07 20.24.53](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.24.53.png)
 
     ![截屏2023-03-07 20.25.13](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.25.13.png)
-
-    5. 重启vercel平台上的服务，载入环境变量
-
-    6. 在Git App配置页面修改App的权限：
+5. 重启vercel平台上的服务，载入环境变量
+6. 在Git App配置页面修改App的权限：
         https://github.com/settings/apps/【your app name】/permissions
 
         ```
@@ -55,15 +53,13 @@ ChatRepo测试版，使用git app+Vercel无服务计算平台构建。
 
         ![截屏2023-03-07 20.28.55](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.28.55.png)
 
-    7. 此时Vercel平台会分配一个Domin，将app的webhook设置为：
+7. 此时Vercel平台会分配一个Domin，将app的webhook设置为：
         domin+/api/github/webhooks
 
         ![截屏2023-03-07 20.36.20](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.36.20.png)应该是类似这样的一个链接：https://chatbot-rosy.vercel.app/api/github/webhooks
-
-    8. 安装Git App，选择需要ChatRepo的仓库
+8. 安装Git App，选择需要ChatRepo的仓库
         https://github.com/settings/apps/【your app name】/installations
-
-    9. 在仓库新建一个issue，进行测试。如果一切无误，则可以看到CharRepo上线自动回答
+9. 在仓库新建一个issue，进行测试。如果一切无误，则可以看到CharRepo上线自动回答
         ```
         格式：
         /Bot xxxxx
