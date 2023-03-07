@@ -6,16 +6,15 @@ const { Configuration, OpenAIApi } = require("openai");
 const request = require('request');
 var config=require('./src/config.js');
 
-// https://chatbot-rosy.vercel.app/api/github/webhooks/index
 
 module.exports = (app) => {
-  app.log("Yay! The app was loaded!");
+  app.log("Wow! The app was loaded!");
 
   config.chatGPTKey=process.env.GPT_KEY;
 
   app.on("issues.opened", async (context) => {
     return context.octokit.issues.createComment(
-      context.issue({ body: "Hello, World!" })
+        context.issue({ body: "Hello, I am CharRepo🤖️. What can I do for you?\n If you want me to answer questions about this repo, please use：/chatrepo [you question]." })
     );
   });
 
