@@ -22,11 +22,8 @@ module.exports = (app) => {
   app.on("issue_comment.created", async (context) => {
     if (context.isBot) return;
 
-    if(context.payload.comment.body.startsWith(config.botName)){
-      readmeAndKeyword(context,app);
 
-    }
-    else if(context.payload.comment.body.startsWith("/Bot")){
+    if(context.payload.comment.body.startsWith("/Bot")){
 
       const configuration = new Configuration({
         apiKey: config.chatGPTKey,
@@ -64,6 +61,12 @@ module.exports = (app) => {
 
       return context.octokit.issues.createComment(issueComment);
     }
+
+    if(context.payload.comment.body.startsWith(config.botName)){
+      readmeAndKeyword(context,app);
+
+    }
+
 
 
   })
