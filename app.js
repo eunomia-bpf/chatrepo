@@ -8,7 +8,7 @@ var config=require('./src/config.js');
 
 
 module.exports = (app) => {
-  app.log("Wow! The app was loaded!");
+  console.log("Wow! The app was loaded!");
 
   config.chatGPTKey=process.env.GPT_KEY;
 
@@ -31,7 +31,7 @@ module.exports = (app) => {
       const openai = new OpenAIApi(configuration);
 
       var info=context.payload.comment.body.substring(4);
-      app.log("Msg:"+info);
+      console.log("Msg:"+info);
 
       const completion = await openai.createCompletion({
         model: "text-davinci-003",
@@ -44,7 +44,7 @@ module.exports = (app) => {
         logprobs: null
       });
 
-      app.log(completion.data.choices[0].text);
+      console.log(completion.data.choices[0].text);
 
       const issueComment = context.issue({
         body: completion.data.choices[0].text,
@@ -68,6 +68,8 @@ module.exports = (app) => {
     }
 
     if(context.payload.comment.body.startsWith(config.botName)){
+
+      console.log(context.payload.comment.body);
       readmeAndKeyword(context,app);
 
     }
@@ -94,7 +96,7 @@ function readmeAndKeyword(context,app){
     const buff = Buffer.from(JSON.stringify(body.content), 'base64');
     readme=buff.toString('utf-8');
 
-
+    console.log("Get Readme succeed");
     //var reg = "/(\d{1000})/";
     //var readme_slice = readme.split(reg);
     //app.log(readme_slice[0]);
@@ -171,7 +173,7 @@ async function getKeyWords(context,app,readme){
     model: "gpt-3.5-turbo",
     messages: msg,
   })
-
+  //console.log(completion.data.choices[0].message.content)
   //app.log.info(completion.data.choices[0].message.content);
   search(context,
       app,
@@ -188,14 +190,14 @@ async function getKeyWords(context,app,readme){
 }
 
 function search(context,app,keyword_raw,full_name,msg){
-  app.log.info("keywords:"+keyword_raw);
+  console.log("keywords:"+keyword_raw);
 
   // 修正keyword的格式
   var keywords=keyword_raw;
 
   //搜索repo
   var url="https://api.github.com/search/code?q="+keywords+"+in:file+repo:"+full_name;
-  app.log.info(url);
+  console.log(url);
   request(url, { json: true , headers:{'User-Agent': 'request','Accept': 'application/vnd.github.text-match+json'} }, (err, res, body) => {
     //app.log.info(body)
 
@@ -222,7 +224,7 @@ function search(context,app,keyword_raw,full_name,msg){
     prompt+="\n";
     prompt+="Instructions: Using the provided Github Code search results, write a comprehensive reply to the given query. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\n"
 
-    app.log.info(prompt);
+    console.log(prompt);
     getOutput(context,app,prompt,msg);
   });
 
@@ -256,7 +258,7 @@ async function getOutput(context,app,prompt,msg){
     max_tokens: 1000
   });
 
-  app.log.info(completion.data.choices[0].text);
+  console.log(completion.data.choices[0].text);
 
   const issueComment = context.issue({
     body: completion.data.choices[0].text,
