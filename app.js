@@ -94,7 +94,18 @@ function readmeAndKeyword(context,app){
     const buff = Buffer.from(JSON.stringify(body.content), 'base64');
     readme=buff.toString('utf-8');
 
-    getKeyWords(context,app,readme);
+
+    //var reg = "/(\d{1000})/";
+    //var readme_slice = readme.split(reg);
+    //app.log(readme_slice[0]);
+    // var readme_slice=readme.substring();
+
+    var readme_slice=[];
+    for (let i = 0; i <readme.length ; i+=1000) {
+      readme_slice.push(readme.slice(i,i+1000))
+    }
+
+    getKeyWords(context,app,readme_slice);
 
   });
 
@@ -126,9 +137,17 @@ async function getKeyWords(context,app,readme){
         {"role": "system", "content": readme_prompts[i]}
     );
   }
+
+  // for(var i=0;i<readme.length;i++){
+  //   msg.push(
+  //       {"role": "assistant", "content": readme[i]}
+  //   );
+  // }
+
   msg.push(
-      {"role": "assistant", "content": readme}
+      {"role": "assistant", "content": readme[0]}
   );
+
   for(var i=0;i<key_word_promts.length;i++){
     msg.push(
         {"role": "system", "content": key_word_promts[i]}
@@ -178,7 +197,7 @@ function search(context,app,keyword_raw,full_name,msg){
   var url="https://api.github.com/search/code?q="+keywords+"+in:file+repo:"+full_name;
   app.log.info(url);
   request(url, { json: true , headers:{'User-Agent': 'request','Accept': 'application/vnd.github.text-match+json'} }, (err, res, body) => {
-    app.log.info(body)
+    //app.log.info(body)
 
 
     var prompt="";
