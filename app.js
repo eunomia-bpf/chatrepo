@@ -38,7 +38,8 @@ module.exports = (app) => {
         prompt: info,
         max_tokens: 250,
         temperature: 0.2,
-        echo: true
+        echo: true,
+        stream: false
       });
 
       app.log.info(completion.data.choices[0].text);
