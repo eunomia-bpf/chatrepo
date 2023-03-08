@@ -31,7 +31,7 @@ module.exports = (app) => {
       const openai = new OpenAIApi(configuration);
 
       var info=context.payload.comment.body.substring(4);
-      app.log.info("Msg:"+info);
+      app.log("Msg:"+info);
 
       const completion = await openai.createCompletion({
         model: "text-davinci-003",
@@ -44,7 +44,7 @@ module.exports = (app) => {
         logprobs: null
       });
 
-      app.log.info(completion.data.choices[0].text);
+      app.log(completion.data.choices[0].text);
 
       const issueComment = context.issue({
         body: completion.data.choices[0].text,
