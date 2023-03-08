@@ -70,7 +70,7 @@ module.exports = (app) => {
     if(context.payload.comment.body.startsWith(config.botName)){
 
       console.log(context.payload.comment.body);
-      readmeAndKeyword(context,app);
+      await readmeAndKeyword(context,app);
 
     }
 
@@ -79,7 +79,7 @@ module.exports = (app) => {
 
 };
 
-function readmeAndKeyword(context,app){
+async function readmeAndKeyword(context,app){
 
   var repo_name=context.payload.repository.name;
   var full_name=context.payload.repository.full_name;
@@ -91,7 +91,7 @@ function readmeAndKeyword(context,app){
 
   console.log("Get Readme......");
   console.log(url);
-  request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
+  await request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
     if (err) {
       console.log("error");
       return console.log(err);
