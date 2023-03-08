@@ -35,15 +35,26 @@ module.exports = (app) => {
       var info=context.payload.comment.body.substring(4);
       app.log.info("Msg:"+info);
 
-      const completion = await openai.createCompletion({
+      // const completion = await openai.createCompletion({
+      //   model: "gpt-3.5-turbo",
+      //   prompt: info,
+      //   max_tokens: 250
+      // });
+
+      const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
-        prompt: info,
-        max_tokens: 250
-      });
-      app.log.info(completion.data.choices[0].text);
+        messages: [
+          {"role": "user", "content": info}
+        ],
+      })  ;
+
+
+
+
+      app.log.info(completion.data.choices[0].message.content);
 
       const issueComment = context.issue({
-        body: completion.data.choices[0].text,
+        body: completion.data.choices[0].message.content,
       });
 
       return context.octokit.issues.createComment(issueComment);
