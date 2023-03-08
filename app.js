@@ -70,7 +70,7 @@ module.exports = (app) => {
     if(context.payload.comment.body.startsWith(config.botName)){
 
       console.log(context.payload.comment.body);
-      await readmeAndKeyword(context,app);
+      readmeAndKeyword(context,app);
 
     }
 
@@ -79,7 +79,7 @@ module.exports = (app) => {
 
 };
 
-async function readmeAndKeyword(context,app){
+function readmeAndKeyword(context,app){
 
   var repo_name=context.payload.repository.name;
   var full_name=context.payload.repository.full_name;
