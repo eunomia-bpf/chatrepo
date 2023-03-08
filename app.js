@@ -88,6 +88,8 @@ function readmeAndKeyword(context,app){
   // https://api.github.com/repos/【owner】/【repo name】/readme
   var url="https://api.github.com/repos/"+full_name+"/readme";
   var readme=""
+
+  console.log("Get Readme......");
   request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
     if (err) {
       return console.log(err);
