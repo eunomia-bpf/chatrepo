@@ -91,31 +91,43 @@ async function readmeAndKeyword(context,app){
 
   console.log("Get Readme......");
   console.log(url);
-  await request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
-    if (err) {
-      console.log("error");
-      return console.log(err);
-    }
 
-    console.log("Get Readme succeed");
+  var readme_slice=[];
+  let p = new Promise((resolve, reject) => {
+    request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
+      if (err) {
+        console.log("error");
+        reject()
+        return console.log(err);
+      }
 
-    const buff = Buffer.from(JSON.stringify(body.content), 'base64');
-    readme=buff.toString('utf-8');
+      console.log("Get Readme succeed");
+
+      const buff = Buffer.from(JSON.stringify(body.content), 'base64');
+      readme=buff.toString('utf-8');
 
 
-    //var reg = "/(\d{1000})/";
-    //var readme_slice = readme.split(reg);
-    //app.log(readme_slice[0]);
-    // var readme_slice=readme.substring();
+      //var reg = "/(\d{1000})/";
+      //var readme_slice = readme.split(reg);
+      //app.log(readme_slice[0]);
+      // var readme_slice=readme.substring();
+      for (let i = 0; i <readme.length ; i+=1000) {
+        readme_slice.push(readme.slice(i,i+1000))
+      }
 
-    var readme_slice=[];
-    for (let i = 0; i <readme.length ; i+=1000) {
-      readme_slice.push(readme.slice(i,i+1000))
-    }
+      resolve();
 
+    });
+
+  })
+
+  p.then(() => {
     getKeyWords(context,app,readme_slice);
+  }, () => {
+    console.log("Readme get fail!")
+  })
 
-  });
+
 
 }
 
