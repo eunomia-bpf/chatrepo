@@ -93,13 +93,16 @@ function readmeAndKeyword(context,app){
   console.log(url);
   request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
     if (err) {
+      console.log("error");
       return console.log(err);
     }
-    //app.log.info("content:"+body.content);
+
+    console.log("Get Readme succeed");
+
     const buff = Buffer.from(JSON.stringify(body.content), 'base64');
     readme=buff.toString('utf-8');
 
-    console.log("Get Readme succeed");
+
     //var reg = "/(\d{1000})/";
     //var readme_slice = readme.split(reg);
     //app.log(readme_slice[0]);
