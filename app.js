@@ -36,7 +36,7 @@ module.exports = (app) => {
       app.log.info("Msg:"+info);
 
       const completion = await openai.createCompletion({
-        model: "code-davinci-002",
+        model: "code-davinci-003",
         prompt: info,
         max_tokens: 250
       });
