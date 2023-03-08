@@ -1,7 +1,7 @@
 # chatrepo
 Chat with your github repo with ChatGPT in Github Actions
 
-![截屏2023-03-08 10.58.25](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-08%2010.58.25.png)
+![截屏2023-03-08 16.17.43](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-08%2016.17.43.png)
 
 ## 概述
 
