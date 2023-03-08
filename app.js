@@ -71,7 +71,7 @@ module.exports = (app) => {
     if(context.payload.comment.body.startsWith(config.botName)){
 
       console.log(context.payload.comment.body);
-      readmeAndKeyword(context,app);
+      await readmeAndKeyword(context,app);
 
       //getKeyWords(context,app,readme);
 
@@ -82,7 +82,7 @@ module.exports = (app) => {
 
 };
 
-function readmeAndKeyword(context,app){
+async function readmeAndKeyword(context,app){
 
   var repo_name=context.payload.repository.name;
   var full_name=context.payload.repository.full_name;
@@ -114,7 +114,7 @@ function readmeAndKeyword(context,app){
 
   //return readme_slice
 
-  getKeyWords(context,app,readme_slice);
+  await getKeyWords(context,app,readme_slice);
 
   // let p = new Promise((resolve, reject) => {
   //   request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
@@ -155,7 +155,7 @@ function readmeAndKeyword(context,app){
 }
 
 
-function getKeyWords(context,app,readme){
+async function getKeyWords(context,app,readme){
   //app.log.info("Readme:"+readme);
 
   var readme_prompts=config.readme_prompts;
@@ -208,15 +208,16 @@ function getKeyWords(context,app,readme){
   //    max_tokens: 1000
   // });
 
-
+  console.log("Get key Words......")
   //app.log.info(msg);
-  const completion =  openai.createChatCompletion({
+  const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: msg,
   })
-  //console.log(completion.data.choices[0].message.content)
-  //app.log.info(completion.data.choices[0].message.content);
-  search(context,
+  console.log("Request GPT sueecsed: ");
+  console.log(completion);
+
+  await search(context,
       app,
       completion.data.choices[0].message.content,
       full_name,
@@ -230,7 +231,7 @@ function getKeyWords(context,app,readme){
 
 }
 
-function search(context,app,keyword_raw,full_name,msg){
+async function search(context,app,keyword_raw,full_name,msg){
   console.log("keywords:"+keyword_raw);
 
   // 修正keyword的格式
@@ -274,7 +275,7 @@ function search(context,app,keyword_raw,full_name,msg){
   prompt+="Instructions: Using the provided Github Code search results, write a comprehensive reply to the given query. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\n"
 
   console.log(prompt);
-  getOutput(context,app,prompt,msg);
+  await getOutput(context,app,prompt,msg);
 
 
   // request(url, { json: true , headers:{'User-Agent': 'request','Accept': 'application/vnd.github.text-match+json'} }, (err, res, body) => {
@@ -310,7 +311,7 @@ function search(context,app,keyword_raw,full_name,msg){
 
 }
 
-function getOutput(context,app,prompt,msg){
+async function getOutput(context,app,prompt,msg){
 
 
   const configuration = new Configuration({
@@ -330,7 +331,7 @@ function getOutput(context,app,prompt,msg){
 
   //app.log.info(completion.data.choices[0].message.content);
 
-  const completion = openai.createCompletion({
+  const completion = await openai.createCompletion({
     model: "text-davinci-003",
     //prompt: question.substring( config.botName.length ),
     prompt:prompt,
