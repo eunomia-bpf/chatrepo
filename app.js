@@ -73,6 +73,8 @@ module.exports = (app) => {
       console.log(context.payload.comment.body);
       readmeAndKeyword(context,app);
 
+      //getKeyWords(context,app,readme);
+
     }
 
   })
@@ -109,6 +111,8 @@ function readmeAndKeyword(context,app){
   for (let i = 0; i <readme.length ; i+=1000) {
     readme_slice.push(readme.slice(i,i+1000))
   }
+
+  //return readme_slice
 
   getKeyWords(context,app,readme_slice);
 
@@ -151,7 +155,7 @@ function readmeAndKeyword(context,app){
 }
 
 
-async function getKeyWords(context,app,readme){
+function getKeyWords(context,app,readme){
   //app.log.info("Readme:"+readme);
 
   var readme_prompts=config.readme_prompts;
@@ -206,7 +210,7 @@ async function getKeyWords(context,app,readme){
 
 
   //app.log.info(msg);
-  const completion = await openai.createChatCompletion({
+  const completion =  openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: msg,
   })
@@ -306,7 +310,7 @@ function search(context,app,keyword_raw,full_name,msg){
 
 }
 
-async function getOutput(context,app,prompt,msg){
+function getOutput(context,app,prompt,msg){
 
 
   const configuration = new Configuration({
@@ -326,7 +330,7 @@ async function getOutput(context,app,prompt,msg){
 
   //app.log.info(completion.data.choices[0].message.content);
 
-  const completion = await openai.createCompletion({
+  const completion = openai.createCompletion({
     model: "text-davinci-003",
     //prompt: question.substring( config.botName.length ),
     prompt:prompt,
