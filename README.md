@@ -1,11 +1,12 @@
-# chatrepo
+# chatrepo🤖️
 Chat with your github repo with ChatGPT in Github Actions
+
+![截屏2023-03-08 10.58.25](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-08%2010.58.25.png)
 
 ## 概述
 
-ChatRepo测试版，使用git app+Vercel无服务计算平台构建。
+ChatRepo，基于ChatGPT，使用Github app + Vercel无服务计算平台构建。
 
-有点复杂，Bot这个东西本身就和普通ci有所不同，本bot又涉及到数据隐私，因此只能用较为复杂的方法实现。
 
 ### 1）平台整体运行逻辑
 
@@ -16,16 +17,16 @@ ChatRepo测试版，使用git app+Vercel无服务计算平台构建。
 5. vercel serverless平台启动服务，开始计算
 6. 最后把生成的答案写回issue
 
-![截屏2023-03-07 20.17.31](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.17.31.png)
+![截屏2023-03-07 23.02.05](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2023.02.05.png)
 
 ### 2）开发者测逻辑
 
-![截屏2023-03-07 20.17.11](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.17.11.png)
+![截屏2023-03-07 23.02.14](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2023.02.14.png)
 
 对于开发者，为了搭建ChatRepo平台，需要完成以下几步：
 
 1. 申请一个Git App，git app只有公开和私有两种选项。由于chatrepo含有chatGPT token，因此不能公开，只能私有申请一个（此处webhook随便填一个）。
-    https://github.com/settings/apps/new
+https://github.com/settings/apps/new
 
 2. 创建ChatRepo仓库，里面放ChatRepo代码（这个我们已经有了）
 
@@ -34,39 +35,43 @@ ChatRepo测试版，使用git app+Vercel无服务计算平台构建。
 
 4. 此时，ChatRepo没有任何隐私数据（Git App的密钥和chatGPT token），因此需要在vercel平台的环境变量里加入：
 
-    ![截屏2023-03-07 20.24.53](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.24.53.png)
+![截屏2023-03-07 20.24.53](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.24.53.png)
 
-    ![截屏2023-03-07 20.25.13](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.25.13.png)
+![截屏2023-03-07 20.25.13](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.25.13.png)
 5. 重启vercel平台上的服务，载入环境变量
-6. 在Git App配置页面修改App的权限：
-        https://github.com/settings/apps/【your app name】/permissions
 
-        ```
+6. 在Git App配置页面修改App的权限：
+https://github.com/settings/apps/[your app name]/permissions
+
+```
         把这几项设置为可读写：
         Commit statuses
         Contents
         Discussions
         Issues
-        ```
+```
 
-        在事件处，勾选以下事件：
+在事件处，勾选以下事件：
 
-        ![截屏2023-03-07 20.28.55](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.28.55.png)
+![截屏2023-03-07 20.28.55](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.28.55.png)
 
 7. 此时Vercel平台会分配一个Domin，将app的webhook设置为：
         domin+/api/github/webhooks
 
-        ![截屏2023-03-07 20.36.20](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.36.20.png)应该是类似这样的一个链接：https://chatbot-rosy.vercel.app/api/github/webhooks
+![截屏2023-03-07 20.36.20](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2020.36.20.png)
+应该是类似这样的一个链接：https://chatbot-rosy.vercel.app/api/github/webhooks
+
 8. 安装Git App，选择需要ChatRepo的仓库
-        https://github.com/settings/apps/【your app name】/installations
+https://github.com/settings/apps/[your app name]/installations
+
 9. 在仓库新建一个issue，进行测试。如果一切无误，则可以看到CharRepo上线自动回答
-        ```
+```
         格式：
         /Bot xxxxx
         和chat gpa普通聊天
         /chatrepo xxxxx
         询问charrepo仓库相关问题
-        ```
+```
 
 ## 3) 开发者模式
 
@@ -90,6 +95,7 @@ npm start
 ```
 GPT_KEY= [your chatGPT token]
 ```
+不要将此文件上传到git
 
 5.参考第二章，设置app权限，并选择一个repo安装该app
 

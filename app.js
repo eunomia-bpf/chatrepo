@@ -6,23 +6,21 @@ const { Configuration, OpenAIApi } = require("openai");
 const request = require('request');
 var config=require('./src/config.js');
 
-// https://chatbot-rosy.vercel.app/api/github/webhooks/index
 
 module.exports = (app) => {
-  app.log("Yay! The app was loaded!");
+  app.log("Wow! The app was loaded!");
 
   config.chatGPTKey=process.env.GPT_KEY;
 
   app.on("issues.opened", async (context) => {
     return context.octokit.issues.createComment(
-      context.issue({ body: "Hello, World!" })
+        context.issue({ body: "Hello, I am CharRepo🤖️. What can I do for you?\n If you want me to answer questions about this repo, please use：/chatrepo [you question]." })
     );
   });
 
 
   app.on("issue_comment.created", async (context) => {
     if (context.isBot) return;
-
 
     if(context.payload.comment.body.startsWith(config.botName)){
       readmeAndKeyword(context,app);
@@ -35,28 +33,38 @@ module.exports = (app) => {
       });
       const openai = new OpenAIApi(configuration);
 
-      var msg=context.payload.comment.body.substring(4);
+      var info=context.payload.comment.body.substring(4);
+      app.log.info("Msg:"+info);
 
-      app.log.info("Msg:"+msg);
       const completion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt:msg,
-        max_tokens: 250,
-        temperature: 0.9,
+        prompt: info,
+        max_tokens: 250
       });
+
       app.log.info(completion.data.choices[0].text);
 
       const issueComment = context.issue({
         body: completion.data.choices[0].text,
       });
 
+      // const completion = await openai.createChatCompletion({
+      //   model: "gpt-3.5-turbo",
+      //   messages: [
+      //     {"role": "user", "content": info}
+      //   ],
+      // });
+      //
+      // app.log.info(completion.data.choices[0].message.content);
+      //
+      // const issueComment = context.issue({
+      //   body: completion.data.choices[0].message.content,
+      // });
+
+
       return context.octokit.issues.createComment(issueComment);
     }
 
-
-    // return context.octokit.issues.createComment(
-    //     context.issue({ body: "Ok!" })
-    // );
 
   })
 
