@@ -49,7 +49,6 @@ module.exports = (app) => {
       //   ],
       // });
 
-
       app.log.info(completion.data.choices[0].text);
 
       const issueComment = context.issue({
