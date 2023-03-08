@@ -13,9 +13,9 @@ var config = {
         "Instructions: Using the user provided query or questions, create some keywords for searching the GitHub repo. If you are new to a GitHub repository, what keywords will you use to search the documentation or code for that question?\n"+
         "No extra output or explain, just query string. No extra space. Generate in only one line. Just a few keywords is ok. Please connect the keywords with ‘+’, which means AND in keywords. Only the items match all keywords will be found, so please make the keyword lists shorter.",
         
-        "As a GitHub repository manager for an open-source project, you must answer technical questions related to your repository. These may include installation instructions, usage examples, and troubleshooting tips.\n"+
-        "Instructions: Create keywords for searching the GitHub repository based on the user's questions. Keywords usually matches file path, file name and file content directly. When searching a GitHub repository for the first time, what keywords would you use to find the relevant documentation or code for a particular question?\n"+
-        "Output: A single-line query string with keywords separated by '+' (which means 'AND' in keywords). Keep the keyword list short to ensure that only items that match all keywords are found. Avoid unnecessary keywords like implementation, code, etc."
+        // "As a GitHub repository manager for an open-source project, you must answer technical questions related to your repository. These may include installation instructions, usage examples, and troubleshooting tips.\n"+
+        // "Instructions: Create keywords for searching the GitHub repository based on the user's questions. Keywords usually matches file path, file name and file content directly. When searching a GitHub repository for the first time, what keywords would you use to find the relevant documentation or code for a particular question?\n"+
+        // "Output: A single-line query string with keywords separated by '+' (which means 'AND' in keywords). Keep the keyword list short to ensure that only items that match all keywords are found. Avoid unnecessary keywords like implementation, code, etc."
     ]
 
 
