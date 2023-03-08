@@ -36,7 +36,7 @@ module.exports = (app) => {
       app.log.info("Msg:"+info);
 
       const completion = await openai.createCompletion({
-        model: "gpt-3.5-turbo",
+        model: "code-davinci-002",
         prompt: info,
         max_tokens: 250
       });
@@ -49,10 +49,6 @@ module.exports = (app) => {
       return context.octokit.issues.createComment(issueComment);
     }
 
-
-    // return context.octokit.issues.createComment(
-    //     context.issue({ body: "Ok!" })
-    // );
 
   })
 
