@@ -90,6 +90,7 @@ function readmeAndKeyword(context,app){
   var readme=""
 
   console.log("Get Readme......");
+  console.log(url);
   request(url, { json: true , headers:{'User-Agent': 'request'} }, (err, res, body) => {
     if (err) {
       return console.log(err);
