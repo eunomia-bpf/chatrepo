@@ -11,11 +11,6 @@ module.exports = (app) => {
   app.log("Wow! The app was loaded!");
 
   config.chatGPTKey=process.env.GPT_KEY;
-  app.log.info(config.chatGPTKey);
-  const configuration = new Configuration({
-    apiKey: config.chatGPTKey,
-  });
-  const openai = new OpenAIApi(configuration);
 
   app.on("issues.opened", async (context) => {
     return context.octokit.issues.createComment(
@@ -32,6 +27,11 @@ module.exports = (app) => {
 
     }
     else if(context.payload.comment.body.startsWith("/Bot")){
+
+      const configuration = new Configuration({
+        apiKey: config.chatGPTKey,
+      });
+      const openai = new OpenAIApi(configuration);
 
       var info=context.payload.comment.body.substring(4);
       app.log.info("Msg:"+info);
