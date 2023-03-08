@@ -11,6 +11,7 @@ module.exports = (app) => {
   app.log("Wow! The app was loaded!");
 
   config.chatGPTKey=process.env.GPT_KEY;
+  app.log.info(config.chatGPTKey);
   const configuration = new Configuration({
     apiKey: config.chatGPTKey,
   });
@@ -35,20 +36,18 @@ module.exports = (app) => {
       var info=context.payload.comment.body.substring(4);
       app.log.info("Msg:"+info);
 
-      // const completion = await openai.createCompletion({
-      //   model: "gpt-3.5-turbo",
-      //   prompt: info,
-      //   max_tokens: 250
-      // });
-
-      const completion = await openai.createChatCompletion({
+      const completion = await openai.createCompletion({
         model: "gpt-3.5-turbo",
-        messages: [
-          {"role": "user", "content": info}
-        ],
-      })  ;
+        prompt: info,
+        max_tokens: 250
+      });
 
-
+      // const completion = await openai.createChatCompletion({
+      //   model: "gpt-3.5-turbo",
+      //   messages: [
+      //     {"role": "user", "content": info}
+      //   ],
+      // });
 
 
       app.log.info(completion.data.choices[0].message.content);
