@@ -37,9 +37,15 @@ module.exports = (app) => {
       app.log.info("Msg:"+info);
 
       const completion = await openai.createCompletion({
-        model: "gpt-3.5-turbo",
+        model: "text-davinci-003",
         prompt: info,
         max_tokens: 250
+      });
+
+      app.log.info(completion.data.choices[0].text);
+
+      const issueComment = context.issue({
+        body: completion.data.choices[0].text,
       });
 
       // const completion = await openai.createChatCompletion({
@@ -48,12 +54,13 @@ module.exports = (app) => {
       //     {"role": "user", "content": info}
       //   ],
       // });
+      //
+      // app.log.info(completion.data.choices[0].message.content);
+      //
+      // const issueComment = context.issue({
+      //   body: completion.data.choices[0].message.content,
+      // });
 
-      app.log.info(completion.data.choices[0].text);
-
-      const issueComment = context.issue({
-        body: completion.data.choices[0].text,
-      });
 
       return context.octokit.issues.createComment(issueComment);
     }
