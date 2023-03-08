@@ -36,7 +36,7 @@ module.exports = (app) => {
       app.log.info("Msg:"+info);
 
       const completion = await openai.createCompletion({
-        model: "code-davinci-003",
+        model: "gpt-3.5-turbo",
         prompt: info,
         max_tokens: 250
       });
