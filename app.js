@@ -37,7 +37,8 @@ module.exports = (app) => {
         model: "text-davinci-003",
         prompt: info,
         max_tokens: 200,
-        temperature: 0.5,
+        temperature: 0,
+        top_p: 1,
         echo: true,
         stream: false,
         logprobs: null
