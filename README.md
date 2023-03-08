@@ -17,11 +17,13 @@ ChatRepo，基于ChatGPT，使用Github app + Probot + Vercel构建。
 5. vercel serverless平台启动服务，开始计算
 6. 最后把生成的答案写回issue
 
-![截屏2023-03-07 23.02.05](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2023.02.05.png)
+<div align="center"> <img src="https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2023.02.05.png" width = 800 /> </div>
+
 
 ### 2）开发者测逻辑
 
-![截屏2023-03-07 23.02.14](https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2023.02.14.png)
+<div align="center"> <img src="https://raw.githubusercontent.com/muchengl/pic_storage/main/uPic/%E6%88%AA%E5%B1%8F2023-03-07%2023.02.14.png" width = 700 /> </div>
+
 
 对于开发者，为了搭建ChatRepo平台，需要完成以下几步：
 
