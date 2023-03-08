@@ -13,7 +13,8 @@
   "dependencies": {
     "openai": "^3.2.1",
     "probot": "^12.2.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "sync-request": "^6.1.0"
   },
   "devDependencies": {
     "nock": "^13.2.9",
